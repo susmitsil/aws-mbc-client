@@ -1,0 +1,1 @@
+find ~/aws-mbc-client/ -type f -iname "*.sh" -exec chmod +x {} \;

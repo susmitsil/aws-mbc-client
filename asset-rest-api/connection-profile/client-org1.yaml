@@ -1,0 +1,12 @@
+
+name: "asset-org1"
+x-type: "hlfv1"
+description: "Asset client definition for Org1"
+version: "1.0"
+client:
+  organization: Org1
+  credentialStore:
+    path: "./fabric-client-certs-org1"
+    cryptoStore:
+      path: "./fabric-client-keys-org1"
+

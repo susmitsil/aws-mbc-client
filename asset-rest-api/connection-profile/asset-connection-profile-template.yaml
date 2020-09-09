@@ -1,0 +1,81 @@
+
+name: "asset"
+x-type: "hlfv1"
+description: "Asset Network"
+version: "1.0"
+
+channels:
+  mychannel:
+    orderers:
+      - orderer.com
+    peers:
+      peer1:
+        endorsingPeer: true
+        chaincodeQuery: true
+        ledgerQuery: true
+        eventSource: true
+      peer2:
+        endorsingPeer: true
+        chaincodeQuery: true
+        ledgerQuery: true
+        eventSource: true
+
+organizations:
+  Org1:
+    mspid: %MEMBERID%
+    peers:
+      - peer1
+    certificateAuthorities:
+      - ca-org1
+  Org2:
+    mspid: %MEMBERID%
+    peers:
+      - peer2
+    certificateAuthorities:
+      - ca-org2
+
+orderers:
+  orderer.com:
+    url: grpcs://%ORDERINGSERVICEENDPOINT%
+    grpcOptions:
+      ssl-target-name-override: %ORDERINGSERVICEENDPOINTNOPORT%
+    tlsCACerts:
+      path: %CAFILE%
+
+peers:
+  peer1:
+    url: grpcs://%PEERSERVICEENDPOINT%
+    eventUrl: grpcs://%PEEREVENTENDPOINT%
+    grpcOptions:
+      ssl-target-name-override: %PEERSERVICEENDPOINTNOPORT%
+    tlsCACerts:
+      path: %CAFILE%
+  peer2:
+    url: grpcs://%PEERSERVICEENDPOINTORG2%
+    eventUrl: grpcs://%PEEREVENTENDPOINTORG2%
+    grpcOptions:
+      ssl-target-name-override: %PEERSERVICEENDPOINTNOPORTORG2%
+    tlsCACerts:
+      path: %CAFILEORG2%
+
+certificateAuthorities:
+  ca-org1:
+    url: https://%CASERVICEENDPOINT%
+    httpOptions:
+      verify: false
+    tlsCACerts:
+      path: %CAFILE%
+    registrar:
+      - enrollId: %ADMINUSER%
+        enrollSecret: %ADMINPWD%
+    caName: %MEMBERID%
+  ca-org2:
+    url: https://%CASERVICEENDPOINTORG2%
+    httpOptions:
+      verify: false
+    tlsCACerts:
+      path: %CAFILEORG2%
+    registrar:
+      - enrollId: %ADMINUSER%
+        enrollSecret: %ADMINPWD%
+    caName: %MEMBERIDORG2%

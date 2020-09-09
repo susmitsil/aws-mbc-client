@@ -1,0 +1,8 @@
+tmp
+archive
+.vscode
+.idea
+asset-rest-api/node_modules
+asset-rest-api/fabric-client-kv-org1
+asset-rest-api/fabric-client-kv-org2
+.DS_Store
