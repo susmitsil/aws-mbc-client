@@ -97,7 +97,6 @@ docker exec -e "CORE_PEER_TLS_ENABLED=true" -e "CORE_PEER_TLS_ROOTCERT_FILE=/opt
     cli peer chaincode query -C $CHANNEL -n myjointcc -c '{"Args":["query","a"]}'
 ```
 
-
 ### Installing the asset chaincode
 ```bash
 docker exec -e "CORE_PEER_TLS_ENABLED=true" -e "CORE_PEER_TLS_ROOTCERT_FILE=/opt/home/managedblockchain-tls-chain.pem" \
@@ -109,7 +108,7 @@ docker exec -e "CORE_PEER_TLS_ENABLED=true" -e "CORE_PEER_TLS_ROOTCERT_FILE=/opt
 ```bash
 docker exec -e "CORE_PEER_TLS_ENABLED=true" -e "CORE_PEER_TLS_ROOTCERT_FILE=/opt/home/managedblockchain-tls-chain.pem" \
     -e "CORE_PEER_LOCALMSPID=$MSP" -e "CORE_PEER_MSPCONFIGPATH=$MSP_PATH" -e "CORE_PEER_ADDRESS=$PEER"  \
-    cli peer chaincode instantiate -o $ORDERER -C $CHANNEL -n $CHAINCODENAME -v v03 -c '{"Args":["init"]}' --cafile /opt/home/managedblockchain-tls-chain.pem --tls -P "AND ('$MEMBERID.member', '$MEMBERIDORG2.member')"
+    cli peer chaincode upgrade -o $ORDERER -C $CHANNEL -n $CHAINCODENAME -v v03 -c '{"Args":["init"]}' --cafile /opt/home/managedblockchain-tls-chain.pem --tls -P "AND ('$MEMBERID.member', '$MEMBERIDORG2.member')"
 ```
 
 ### Querying the asset chaincode

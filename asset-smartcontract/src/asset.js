@@ -235,39 +235,13 @@ let Chaincode = class {
    * @param {*} stub 
    * @param {*} args 
    */
-  async queryAssetByDocType(stub, args) {
+  async queryAllAssets(stub, args) {
     console.log('============= START : queryAllDonors ===========');
     console.log('##### queryAllDonors arguments: ' + JSON.stringify(args));
  
     let queryString = '{"selector": {"docType": "asset"}}';
     return queryByString(stub, queryString);
   }
-  
-
-  async queryAllAssets(stub, args) {
-    const startKey = '';
-    const endKey = '';
-    const allResults = [];
-    for await (const {key, value} of stub.getStateByRange(startKey, endKey)) {
-        const strValue = Buffer.from(value).toString('utf8');
-        let record;
-        try {
-            record = JSON.parse(strValue);
-        } catch (err) {
-            console.log(err);
-            record = strValue;
-        }
-        allResults.push({ Key: key, Record: record });
-    }
-    console.info(allResults);
-    return JSON.stringify(allResults);
-  }
-
-  /************************************************************************************************
-   * 
-   * Donation functions 
-   * 
-   ************************************************************************************************/
 
   /**
    * Creates a new Donation
