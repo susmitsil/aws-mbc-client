@@ -1,6 +1,6 @@
 #!/bin/bash
 
-REPODIR=~/aws-amb-client
+REPODIR=~/aws-mbc-client
 LOCALCA=/home/ec2-user/managedblockchain-tls-chain.pem 
 
 #copy the connection profiles
