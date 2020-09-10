@@ -125,59 +125,59 @@ app.post('/users', awaitHandler(async (req, res) => {
 }));
 
 /************************************************************************************
- * Donor methods
+ * Asset methods
  ************************************************************************************/
 
-// GET Donor
+// GET Assets
 app.get('/assets', awaitHandler(async (req, res) => {
 	logger.info('================ GET on Asset');
 	let args = {};
 	let fcn = "queryAllAssets";
 
-    logger.info('##### GET on Donor - username : ' + username);
-	logger.info('##### GET on Donor - userOrg : ' + orgName);
-	logger.info('##### GET on Donor - channelName : ' + channelName);
-	logger.info('##### GET on Donor - chaincodeName : ' + chaincodeName);
-	logger.info('##### GET on Donor - fcn : ' + fcn);
-	logger.info('##### GET on Donor - args : ' + JSON.stringify(args));
-	logger.info('##### GET on Donor - peers : ' + peers);
+    logger.info('##### GET on Asset - username : ' + username);
+	logger.info('##### GET on Asset - userOrg : ' + orgName);
+	logger.info('##### GET on Asset - channelName : ' + channelName);
+	logger.info('##### GET on Asset - chaincodeName : ' + chaincodeName);
+	logger.info('##### GET on Asset - fcn : ' + fcn);
+	logger.info('##### GET on Asset - args : ' + JSON.stringify(args));
+	logger.info('##### GET on Asset - peers : ' + peers);
 
     let message = await query.queryChaincode(peers, channelName, chaincodeName, args, fcn, username, orgName);
  	res.send(message);
 }));
 
-// GET a specific Donor
+// GET a specific Asset
 app.get('/assets/:assetId', awaitHandler(async (req, res) => {
 	logger.info('================ GET Asset by ID');
 	logger.info('Asset Id : ' + req.params);
 	let args = req.params;
 	let fcn = "queryAsset";
 
-    logger.info('##### GET on Donor by username - username : ' + username);
-	logger.info('##### GET on Donor by username - userOrg : ' + orgName);
-	logger.info('##### GET on Donor by username - channelName : ' + channelName);
-	logger.info('##### GET on Donor by username - chaincodeName : ' + chaincodeName);
-	logger.info('##### GET on Donor by username - fcn : ' + fcn);
-	logger.info('##### GET on Donor by username - args : ' + JSON.stringify(args));
-	logger.info('##### GET on Donor by username - peers : ' + peers);
+    logger.info('##### GET on Asset by username - username : ' + username);
+	logger.info('##### GET on Asset by username - userOrg : ' + orgName);
+	logger.info('##### GET on Asset by username - channelName : ' + channelName);
+	logger.info('##### GET on Asset by username - chaincodeName : ' + chaincodeName);
+	logger.info('##### GET on Asset by username - fcn : ' + fcn);
+	logger.info('##### GET on Asset by username - args : ' + JSON.stringify(args));
+	logger.info('##### GET on Asset by username - peers : ' + peers);
 
     let message = await query.queryChaincode(peers, channelName, chaincodeName, args, fcn, username, orgName);
  	res.send(message);
 }));
 
-// POST Donor
+// POST Asset
 app.post('/assets', awaitHandler(async (req, res) => {
 	logger.info('================ POST an Asset');
 	var args = req.body;
 	var fcn = "createAsset";
 
-    logger.info('##### POST on Donor - username : ' + username);
-	logger.info('##### POST on Donor - userOrg : ' + orgName);
-	logger.info('##### POST on Donor - channelName : ' + channelName);
-	logger.info('##### POST on Donor - chaincodeName : ' + chaincodeName);
-	logger.info('##### POST on Donor - fcn : ' + fcn);
-	logger.info('##### POST on Donor - args : ' + JSON.stringify(args));
-	logger.info('##### POST on Donor - peers : ' + peers);
+    logger.info('##### POST on Asset - username : ' + username);
+	logger.info('##### POST on Asset - userOrg : ' + orgName);
+	logger.info('##### POST on Asset - channelName : ' + channelName);
+	logger.info('##### POST on Asset - chaincodeName : ' + chaincodeName);
+	logger.info('##### POST on Asset - fcn : ' + fcn);
+	logger.info('##### POST on Asset - args : ' + JSON.stringify(args));
+	logger.info('##### POST on Asset - peers : ' + peers);
 
 	let message = await invoke.invokeChaincode(peers, channelName, chaincodeName, args, fcn, username, orgName);
 	res.send(message);

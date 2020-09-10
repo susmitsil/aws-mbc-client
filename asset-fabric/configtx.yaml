@@ -11,7 +11,7 @@ Organizations:
         Name: __MEMBERID1__
 
         # ID to load the MSP definition as
-        ID: __MEMBERID2__
+        ID: __MEMBERID1__
 
         MSPDir: /opt/home/admin-msp
 

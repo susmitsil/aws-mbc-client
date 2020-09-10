@@ -118,6 +118,8 @@ let Chaincode = class {
       // args is passed as a JSON string
       let json = {"assetOwnerName":"Susmit", "email":"susmit@bcasset.com","assetName": "CAR "+(100*i),"assetId": "CAR"+(100*i),
       "assetType": "car","docType":"asset","registeredDate":"2020-09-09T11:52:20.182Z"};
+
+      console.log('##### Creating Asset: ' + "CAR "+(100*i));
         
       let key = json['assetId'];
       
