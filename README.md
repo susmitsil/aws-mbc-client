@@ -82,13 +82,6 @@ docker exec -e "CORE_PEER_TLS_ENABLED=true" -e "CORE_PEER_TLS_ROOTCERT_FILE=/opt
     -e "CORE_PEER_LOCALMSPID=$MSP" -e "CORE_PEER_MSPCONFIGPATH=$MSP_PATH" -e "CORE_PEER_ADDRESS=$PEER"  \
     cli peer chaincode install -n myjointcc -v v0 -p github.com/chaincode_example02/go
 ```
-
-### Installing the chaincode
-```bash
-docker exec -e "CORE_PEER_TLS_ENABLED=true" -e "CORE_PEER_TLS_ROOTCERT_FILE=/opt/home/managedblockchain-tls-chain.pem" \
-    -e "CORE_PEER_LOCALMSPID=$MSP" -e "CORE_PEER_MSPCONFIGPATH=$MSP_PATH" -e "CORE_PEER_ADDRESS=$PEER"  \
-    cli peer chaincode install -n $CHAINCODENAME -l node -v v0 -p $CHAINCODEDIR
-```
 ### Instantiating the sample chaincode
 ```bash
 docker exec -e "CORE_PEER_TLS_ENABLED=true" -e "CORE_PEER_TLS_ROOTCERT_FILE=/opt/home/managedblockchain-tls-chain.pem" \
@@ -96,18 +89,27 @@ docker exec -e "CORE_PEER_TLS_ENABLED=true" -e "CORE_PEER_TLS_ROOTCERT_FILE=/opt
     cli peer chaincode instantiate -o $ORDERER -C $CHANNEL -n myjointcc -v v0 -c '{"Args":["init","a","100","b","200"]}' --cafile /opt/home/managedblockchain-tls-chain.pem --tls -P "AND ('$MEMBERID.member', '$MEMBERIDORG2.member')"
 ```    
 
-### Instantiating the chaincode
-```bash
-docker exec -e "CORE_PEER_TLS_ENABLED=true" -e "CORE_PEER_TLS_ROOTCERT_FILE=/opt/home/managedblockchain-tls-chain.pem" \
-    -e "CORE_PEER_LOCALMSPID=$MSP" -e "CORE_PEER_MSPCONFIGPATH=$MSP_PATH" -e "CORE_PEER_ADDRESS=$PEER"  \
-    cli peer chaincode instantiate -o $ORDERER -C $CHANNEL -n $CHAINCODENAME -v v0 -c '{"Args":["init"]}' --cafile /opt/home/managedblockchain-tls-chain.pem --tls -P "AND ('$MEMBERID.member', '$MEMBERIDORG2.member')"
-```
 ### Querying the sample chaincode
 
 ```bash
 docker exec -e "CORE_PEER_TLS_ENABLED=true" -e "CORE_PEER_TLS_ROOTCERT_FILE=/opt/home/managedblockchain-tls-chain.pem" \
     -e "CORE_PEER_ADDRESS=$PEER" -e "CORE_PEER_LOCALMSPID=$MSP" -e "CORE_PEER_MSPCONFIGPATH=$MSP_PATH" \
     cli peer chaincode query -C $CHANNEL -n myjointcc -c '{"Args":["query","a"]}'
+```
+
+
+### Installing the asset chaincode
+```bash
+docker exec -e "CORE_PEER_TLS_ENABLED=true" -e "CORE_PEER_TLS_ROOTCERT_FILE=/opt/home/managedblockchain-tls-chain.pem" \
+    -e "CORE_PEER_LOCALMSPID=$MSP" -e "CORE_PEER_MSPCONFIGPATH=$MSP_PATH" -e "CORE_PEER_ADDRESS=$PEER"  \
+    cli peer chaincode install -n $CHAINCODENAME -l node -v v03 -p $CHAINCODEDIR
+```
+
+### Instantiating the asset chaincode
+```bash
+docker exec -e "CORE_PEER_TLS_ENABLED=true" -e "CORE_PEER_TLS_ROOTCERT_FILE=/opt/home/managedblockchain-tls-chain.pem" \
+    -e "CORE_PEER_LOCALMSPID=$MSP" -e "CORE_PEER_MSPCONFIGPATH=$MSP_PATH" -e "CORE_PEER_ADDRESS=$PEER"  \
+    cli peer chaincode instantiate -o $ORDERER -C $CHANNEL -n $CHAINCODENAME -v v03 -c '{"Args":["init"]}' --cafile /opt/home/managedblockchain-tls-chain.pem --tls -P "AND ('$MEMBERID.member', '$MEMBERIDORG2.member')"
 ```
 
 ### Querying the asset chaincode
@@ -146,7 +148,7 @@ docker exec -e "CORE_PEER_TLS_ENABLED=true" -e "CORE_PEER_TLS_ROOTCERT_FILE=/opt
 ```bash
 docker exec -e "CORE_PEER_TLS_ENABLED=true" -e "CORE_PEER_TLS_ROOTCERT_FILE=/opt/home/managedblockchain-tls-chain.pem" \
     -e "CORE_PEER_ADDRESS=$PEER" -e "CORE_PEER_LOCALMSPID=$MSP" -e "CORE_PEER_MSPCONFIGPATH=$MSP_PATH" \
-    cli peer chaincode query -C $CHANNEL -n $CHAINCODENAME -c '{"Args":["queryAsset","{\"assetId\":\"CAR201\"}"]}'
+    cli peer chaincode query -C $CHANNEL -n $CHAINCODENAME -c '{"Args":["queryAsset","{\"assetId\":\"CAR200\"}"]}'
 ```
 
 ## Start REST API

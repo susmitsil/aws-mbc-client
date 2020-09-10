@@ -32,8 +32,10 @@ async function queryByString(stub, queryString) {
   let jsonQueryString = JSON.parse(queryString);
   if (jsonQueryString['selector'] && jsonQueryString['selector']['docType']) {
     docType = jsonQueryString['selector']['docType'];
-    startKey = docType + "0";
-    endKey = docType + "z";
+    //startKey = docType + "0";
+    //endKey = docType + "z";
+    startKey="";
+    endKey="";
   }
   else {
     throw new Error('##### queryByString - Cannot call queryByString without a docType element: ' + queryString);   
@@ -116,10 +118,10 @@ let Chaincode = class {
     var i=1;
     while(i<6){
       // args is passed as a JSON string
-      let json = {"assetOwnerName":"Susmit", "email":"susmit@bcasset.com","assetName": "CAR "+(100*i),"assetId": "CAR"+(100*i),
+      let json = {"assetOwnerName":"Susmit", "email":"susmit@bcasset.com","assetName": "CAR "+(100+i),"assetId": "CAR"+(100+i),
       "assetType": "car","docType":"asset","registeredDate":"2020-09-09T11:52:20.182Z"};
 
-      console.log('##### Creating Asset: ' + "CAR "+(100*i));
+      console.log('##### Creating Asset: ' + "CAR "+(100+i));
         
       let key = json['assetId'];
       
@@ -233,12 +235,32 @@ let Chaincode = class {
    * @param {*} stub 
    * @param {*} args 
    */
-  async queryAllAssets(stub, args) {
+  async queryAssetByDocType(stub, args) {
     console.log('============= START : queryAllDonors ===========');
     console.log('##### queryAllDonors arguments: ' + JSON.stringify(args));
  
     let queryString = '{"selector": {"docType": "asset"}}';
     return queryByString(stub, queryString);
+  }
+  
+
+  async queryAllAssets(stub, args) {
+    const startKey = '';
+    const endKey = '';
+    const allResults = [];
+    for await (const {key, value} of stub.getStateByRange(startKey, endKey)) {
+        const strValue = Buffer.from(value).toString('utf8');
+        let record;
+        try {
+            record = JSON.parse(strValue);
+        } catch (err) {
+            console.log(err);
+            record = strValue;
+        }
+        allResults.push({ Key: key, Record: record });
+    }
+    console.info(allResults);
+    return JSON.stringify(allResults);
   }
 
   /************************************************************************************************
